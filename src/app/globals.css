@@ -1,26 +1,97 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+/* Root variables for light mode */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #ffffff; /* Pure white background */
+  --foreground: #1a1a1a; /* Slightly softer black for text */
+  --muted: #6b7280; /* Gray for secondary text */
+  --accent: #2563eb; /* Blue accent for buttons/links */
+  --border: #e5e7eb; /* Light gray for borders */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* Dark mode variables */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #111827; /* Dark gray-blue background */
+    --foreground: #e5e7eb; /* Light gray text */
+    --muted: #9ca3af; /* Muted gray for secondary text in dark mode */
+    --accent: #60a5fa; /* Lighter blue accent for dark mode */
+    --border: #374151; /* Darker border for contrast */
   }
 }
 
+/* Custom theme variables */
+@layer base {
+  :root {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-muted: var(--muted);
+    --color-accent: var(--accent);
+    --color-border: var(--border);
+    --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+}
+
+/* Base styles */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Improve table styling */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden; /* Ensures rounded corners clip content */
+}
+
+th, td {
+  padding: 12px 16px;
+  text-align: left;
+}
+
+th {
+  background: var(--border);
+  color: var(--muted);
+  font-weight: 600;
+}
+
+tr {
+  border-bottom: 1px solid var(--border);
+}
+
+tr:last-child {
+  border-bottom: none;
+}
+
+/* Button enhancements */
+button, a[href] button {
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+button:hover, a[href] button:hover {
+  transform: translateY(-1px);
+}
+
+/* List item enhancements (for parallels page) */
+li {
+  transition: background-color 0.2s ease;
+}
+
+/* Better focus states for accessibility */
+:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
